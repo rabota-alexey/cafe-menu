@@ -3,7 +3,7 @@ module.exports = {
    purge: ["./src/**/*.html"], //https://tailwindcss.com/docs/controlling-file-size
    theme: {
       fontFamily: {
-         'main': ['Roboto', 'system-ui',
+         'main': ['IBM Plex Sans', 'system-ui',
             '-apple-system',
             'BlinkMacSystemFont',
             '"Segoe UI"',
@@ -23,10 +23,6 @@ module.exports = {
             '3': '3',
             '4': '4',
          },
-         minWidth: {
-            '40': '40px',
-            '56': '56px'
-         },
          maxWidth: {
             '0': '0',
             '1/4': '25%',
@@ -34,11 +30,17 @@ module.exports = {
             '3/4': '75%',
             'fitcontent': 'fit-content'
          },
+         minWidth: {
+            '1/4': '25%',
+            '1/2': '50%',
+            '3/4': '75%',
+         },
          width: {
+            '14': '3.5rem',
             'max-content': 'max-content'
          },
          height: {
-            '13': '3.25rem',
+            '7': '1.75rem',
             '14': '3.5rem'
          }
       },

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+   <symbol viewBox="0 0 24 24" id="add">
+      <path d="M12 4V20" stroke="#22242C" stroke-linecap="round" />
+      <path d="M4 12L20 12" stroke="#22242C" stroke-linecap="round" />
+   </symbol>
+   
+   <symbol viewBox="0 0 10 6" id="arrow_down">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+         d="M0.734835 0.734835C0.881282 0.588388 1.11872 0.588388 1.26517 0.734835L5 4.46967L8.73483 0.734835C8.88128 0.588388 9.11872 0.588388 9.26517 0.734835C9.41161 0.881282 9.41161 1.11872 9.26517 1.26517L5.26517 5.26517C5.11872 5.41161 4.88128 5.41161 4.73483 5.26517L0.734835 1.26517C0.588388 1.11872 0.588388 0.881282 0.734835 0.734835Z"
+         fill="#22242C" />
+   </symbol>
+   
+   <symbol viewBox="0 0 6 10" id="arrow_right">
+      <path d="M1 1L5 5L1 9" stroke="#22242C" stroke-linecap="round" stroke-linejoin="round" />
+   </symbol>
+   
+   <symbol viewBox="0 0 12 11" id="move_down">
+      <path
+         d="M5.13397 9.5C5.51887 10.1667 6.48113 10.1667 6.86603 9.5L11.1962 2C11.5811 1.33333 11.0999 0.5 10.3301 0.5H1.66987C0.900073 0.5 0.418948 1.33333 0.803848 2L5.13397 9.5Z"
+         stroke="white" />
+   </symbol>
+   
+   
+   
+</svg>
