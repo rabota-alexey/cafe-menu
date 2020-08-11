@@ -1,0 +1,19 @@
+.btn {
+   @apply inline-flex rounded-md border border-gray-400 p-3 items-center
+}
+
+.btn:focus {
+   @apply outline-none
+}
+
+.btn>svg {
+   @apply fill-current flex-grow-0 text-xl h-6 w-6 mr-3 border rounded-full border-gray-400 p-1
+}
+
+.dropdown-item {
+   @apply py-3 pr-2 cursor-pointer items-center flex
+}
+
+.dropdown-item>svg {
+   @apply mr-3 fill-current flex-grow-0 p-1
+}

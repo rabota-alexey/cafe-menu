@@ -31,22 +31,36 @@ module.exports = {
             'fitcontent': 'fit-content'
          },
          minWidth: {
+            '3': '0.75rem',
+            '6': '1.5rem',
             '1/4': '25%',
             '1/2': '50%',
             '3/4': '75%',
          },
          width: {
+            '7': '1.75rem',
             '14': '3.5rem',
             'max-content': 'max-content'
          },
          height: {
             '7': '1.75rem',
-            '14': '3.5rem'
+            '14': '3.5rem',
+            '1/2-screen': '50vh'
+         },
+         minHeight: {
+            '12': '3rem'
+         },
+         margin: {
+            '7': '1.75rem'
+         },
+         fontSize: {
+            'xxs': '0.625rem'
          }
       },
    },
    variants: {
       opacity: ['responsive', 'hover', 'focus', 'disabled'],
+      padding: ['responsive', 'hover', 'focus'],
       textColor: ['responsive', 'hover', 'focus', 'visited', 'group-hover'],
       backgroundColor: ['responsive', 'hover', 'focus', 'active'],
       fill: ['responsive', 'hover', 'focus'],
@@ -60,6 +74,8 @@ module.exports = {
       outline: ['focus', 'responsive', 'hover'],
       boxShadow: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
       rotate: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+      flex: ['responsive', 'hover', 'focus', 'group-hover'],
+      zIndex: ['responsive', 'hover', 'focus']
    },
    plugins: [],
 };

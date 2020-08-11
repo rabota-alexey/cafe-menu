@@ -1,1 +1,139 @@
-Привет
+<div class="flex space-x-3 m-3">
+   <button class="flex-1 btn" (click)="addSection()">
+      <svg viewBox="0 0 24 24">
+         <use xlink:href="/assets/images/icons.svg#add" />
+      </svg>
+      <span>Раздел</span>
+   </button>
+   
+   <button class="flex-1 btn" (click)="addItem()">
+      <svg viewBox="0 0 24 24">
+         <use xlink:href="/assets/images/icons.svg#add" />
+      </svg>
+      <span>Позиция</span>
+   </button>
+</div>
+
+<div *ngIf="!(menu | async)?.length" class="absolute inset-0 flex flex-col items-center justify-center">
+   <svg viewBox="0 0 24 24" class="fill-current text-gray-400 w-full h-40">
+      <use xlink:href="/assets/images/icons.svg#empty_menu" />flex flex-col justify-center items-center
+   </svg>
+   
+   <span class="text-gray-600 mt-5 text-lg text-center w-3/5">Добавьте в новое меню разделы и позиции</span>
+</div>
+
+<ul *ngIf="menu | async as menuList" class="flex flex-col space-y-2">
+   <ng-template #recursiveList let-menuList let-parentId="parentId">
+      <li *ngFor="let section of menuList; index as i" class="flex flex-col space-y-2">
+         
+         <!-- секции -->
+         <div
+            class="rounded-md p-3 bg-white flex-1 mx-3 inline-flex items-center group hover:py-2 hover:bg-blue-500 hover:text-white min-h-12">
+            
+            <!-- свёрнута/развёрнута секция -->
+            <button class="w-3 focus:outline-none">
+               <svg viewBox="0 0 24 24" class="fill-current" (click)="triggerExpand(section.id)">
+                  <use [attr.xlink:href]="'/assets/images/icons.svg#' + (section.isExpanded ? 'arrow_down' : 'arrow_right')" />
+               </svg>
+            </button>
+            
+            <!-- меню секции -->
+            <div class="relative">
+               
+               <!-- иконка -->
+               <button (click)="section.isDropDownVisible = !section.isDropDownVisible"
+                  class="focus:outline-none hover:z-50 relative w-5 ml-7 flex items-center">
+                  <svg viewBox="0 0 24 24" class="fill-current flex-1">
+                     <use xlink:href="/assets/images/icons.svg#dots" />
+                  </svg>
+               </button>
+               
+               <!-- задний невидимый фон при вызове меню -->
+               <button *ngIf="section.isDropDownVisible" (click)="section.isDropDownVisible = false" tabindex="-1"
+                  class="fixed inset-0 h-full w-full bg-transparent cursor-default focus:outline-none"></button>
+               
+               <!-- выпадающее меню -->
+               <nav
+                  [ngClass]="{'visible opacity-100':section.isDropDownVisible, 'invisible opacity-0':!section.isDropDownVisible}"
+                  class="absolute transition-opacity duration-200 ease-in-out text-blue-900 bg-gray-100 z-50 left-0 w-max-content mt-5 -ml-6 shadow-lg rounded-md p-1">
+                  <ul (click)="section.isDropDownVisible = false">
+                     <li class="dropdown-item">
+                        <svg viewBox="0 0 24 24" class="h-7 w-7">
+                           <use xlink:href="/assets/images/icons.svg#add" />
+                        </svg>
+                        <span>Добавить позицию</span>
+                     </li>
+                     
+                     <li class="dropdown-item">
+                        <svg viewBox="0 0 24 24" class="h-7 w-7">
+                           <use xlink:href="/assets/images/icons.svg#add" />
+                        </svg>
+                        <span>Добавить раздел меню</span>
+                     </li>
+                     
+                     <li class="dropdown-item">
+                        <svg viewBox="0 0 24 24" class="h-7 w-7">
+                           <use xlink:href="/assets/images/icons.svg#edit" />
+                        </svg>
+                        <span>Редактировать</span>
+                     </li>
+                     
+                     <li class="dropdown-item">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6">
+                           <use xlink:href="/assets/images/icons.svg#delete" />
+                        </svg>
+                        <span>Удалить</span>
+                     </li>
+                  </ul>
+               </nav>
+            </div>
+            
+            <!-- имя секции -->
+            <span class="flex-1 text-gray-900 font-medium text-base group-hover:text-white ml-6 truncate">{{section.name}}</span>
+            
+            <!-- подвинуть вверх -->
+            <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-6 focus:outline-none"
+               (click)="moveSection(parentId, i, i-1)">
+               <svg viewBox="0 0 24 24" class="fill-current">
+                  <use xlink:href="/assets/images/icons.svg#move_up" />
+               </svg>
+               <span class="text-xxs text-white">вверх</span>
+            </button>
+            
+            <!-- подвинуть вниз -->
+            <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-10 mr-3 focus:outline-none"
+               (click)="moveSection(parentId, i, i+1)">
+               <svg viewBox="0 0 24 24" class="fill-current">
+                  <use xlink:href="/assets/images/icons.svg#move_down" />
+               </svg>
+               <span class="text-xxs text-white">вниз</span>
+            </button>
+         </div>
+         
+         <!-- рекурсия к вложенным секциям -->
+         <ul *ngIf="section.sections?.length && section.isExpanded" class="ml-10 flex flex-col space-y-2">
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: section.sections, parentId: section.id}">
+            </ng-container>
+         </ul>
+         
+         <!-- элементы секции -->
+         <ul *ngIf="section.items?.length && section.isExpanded" class="ml-10 mr-3 flex flex-col space-y-2">
+            <li *ngFor="let item of section.items"
+               class="rounded-md p-3 bg-white inline-flex items-center hover:bg-blue-500 group hover:text-white ml-3 flex-1 min-h-12">
+               <button class="w-5 focus:outline-none">
+                  <svg viewBox="0 0 24 24" class="fill-current">
+                     <use xlink:href="/assets/images/icons.svg#dots" />
+                  </svg>
+               </button>
+               
+               <span
+                  class="text-gray-900 font-normal text-base group-hover:text-white ml-6 flex-1 text-left truncate">{{item.name}}</span>
+               <span class="text-gray-900 font-normal text-base group-hover:text-white text-right ml-3">{{item.sale}} ₽</span>
+               
+            </li>
+         </ul>
+         
+      </li>
+   </ng-template>
+   <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: menuList }"></ng-container>
+</ul>
