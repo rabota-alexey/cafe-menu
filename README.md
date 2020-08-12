@@ -15,3 +15,5 @@
 - [PostCSS](https://postcss.org/) плагины для удобной работы со стилями Tailwind
 - [class-transformer](https://github.com/typestack/class-transformer#readme) для корректной сериализации JSON в классы Typescript
 - все иконки хранятся в одном файле [icons.svg](src/assets/images/icons.svg), а обращение к конкретной иконке идёт по id
+- [JSON с данными](src/assets/menu.json) подтягивается с помощью Observable, а не простого import, как будто бы идёт обращение к API
+- все манипуляции с данными (меню) происходят [в сервисе](src/services/menu.service.ts)
