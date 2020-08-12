@@ -6,12 +6,12 @@ export class MenuItem {
         Object.assign(this, init);
     }
 
-    @Expose()
     public id: string = Guid.create().toString();
 
-    @Expose()
     public name: string = '';
 
-    @Expose()
     public sale: number = 0;
+
+    @Expose()
+    public isDropDownVisible: boolean = false;
 }

@@ -1,0 +1,192 @@
+<div class="flex space-x-3 m-4 mt-0 pt-4 border-t border-gray-400">
+   <a class="flex-1 btn" [routerLink]="['section']">
+      <svg viewBox="0 0 24 24">
+         <use xlink:href="/assets/images/icons.svg#add" />
+      </svg>
+      <span>Раздел</span>
+   </a>
+   
+   <a class="flex-1 btn" [routerLink]="['item']">
+      <svg viewBox="0 0 24 24">
+         <use xlink:href="/assets/images/icons.svg#add" />
+      </svg>
+      <span>Позиция</span>
+   </a>
+</div>
+
+<div *ngIf="!(menu | async)?.length" class="absolute flex flex-col items-center justify-center w-full mt-1/4">
+   <svg viewBox="0 0 24 24" class="fill-current text-gray-400 w-full h-40">
+      <use xlink:href="/assets/images/icons.svg#empty_menu" />
+   </svg>
+   
+   <span class="text-gray-600 mt-5 text-lg text-center w-3/5">Добавьте в новое меню разделы и позиции</span>
+</div>
+
+<ul *ngIf="menu | async as menuList" class="flex flex-col space-y-2">
+   <ng-template #recursiveList let-menuList let-parentId="parentId">
+      <li *ngFor="let section of menuList; index as i" class="flex flex-col space-y-2">
+         
+         <!-- секции -->
+         <div
+            class="relative rounded-md p-3 bg-white flex-1 mx-4 inline-flex items-center group hover:py-2 hover:bg-blue-500 hover:text-white min-h-12">
+            
+            <!-- цвет -->
+            <div [ngStyle]="{'background-color': section.color}" class="absolute left-0 top-0 w-1 h-12 rounded-l-md"></div>
+            
+            <!-- свёрнута/развёрнута секция -->
+            <button class="w-3 ml-1">
+               <svg viewBox="0 0 24 24" class="fill-current transform" [ngClass]="{'-rotate-90': section.isExpanded}"
+                  (click)="triggerExpand(section.id)">
+                  <use xlink:href="/assets/images/icons.svg#arrow_down" />
+               </svg>
+            </button>
+            
+            <!-- меню секции -->
+            <div class="relative">
+               
+               <!-- иконка -->
+               <button (click)="section.isDropDownVisible = !section.isDropDownVisible"
+                  class="relative w-5 ml-6 flex items-center">
+                  <svg viewBox="0 0 24 24" class="fill-current flex-1">
+                     <use xlink:href="/assets/images/icons.svg#dots" />
+                  </svg>
+               </button>
+               
+               <!-- задний невидимый фон при вызове меню -->
+               <button *ngIf="section.isDropDownVisible" (click)="section.isDropDownVisible = false" tabindex="-1"
+                  class="fixed inset-0 h-full w-full bg-blue-900 opacity-25 cursor-default z-10"></button>
+               
+               <!-- выпадающее меню -->
+               <nav
+                  [ngClass]="{'visible opacity-100':section.isDropDownVisible, 'invisible opacity-0':!section.isDropDownVisible}"
+                  class="absolute transition-opacity duration-200 ease-in-out text-blue-900 bg-gray-100 z-50 left-0 w-max-content mt-5 -ml-6 shadow-lg rounded-md p-1">
+                  <ul>
+                     <li>
+                        <a class="dropdown-item" [routerLink]="['item', { parentId: section.id} ]"
+                           (click)="section.isDropDownVisible = false">
+                           <svg viewBox="0 0 24 24" class="h-7 w-7">
+                              <use xlink:href="/assets/images/icons.svg#add" />
+                           </svg>
+                           <span>Добавить позицию</span>
+                        </a>
+                     </li>
+                     
+                     <li>
+                        <a class="dropdown-item" [routerLink]="['section', { parentId: section.id} ]"
+                           (click)="section.isDropDownVisible = false">
+                           <svg viewBox="0 0 24 24" class="h-7 w-7">
+                              <use xlink:href="/assets/images/icons.svg#add" />
+                           </svg>
+                           <span>Добавить раздел меню</span>
+                        </a>
+                     </li>
+                     
+                     <li>
+                        <a class="dropdown-item" [routerLink]="['section', { sectionId: section.id, parentId: parentId }]"
+                           (click)="section.isDropDownVisible = false">
+                           <svg viewBox="0 0 24 24" class="h-7 w-7">
+                              <use xlink:href="/assets/images/icons.svg#edit" />
+                           </svg>
+                           <span>Редактировать</span>
+                        </a>
+                     </li>
+                     
+                     <li>
+                        <button class="dropdown-item cursor-pointer"
+                           (click)="section.isDropDownVisible = false; deleteSection(section.id)">
+                           <svg viewBox="0 0 24 24" class="w-6 h-6">
+                              <use xlink:href="/assets/images/icons.svg#delete" />
+                           </svg>
+                           <span>Удалить</span>
+                        </button>
+                     </li>
+                  </ul>
+               </nav>
+            </div>
+            
+            <!-- имя секции -->
+            <span class="flex-1 font-medium text-base group-hover:text-white ml-6 truncate select-none"
+               [title]="section.name">{{section.name}}</span>
+            
+            <!-- подвинуть вверх -->
+            <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-6"
+               (click)="moveSection(section.id, true)">
+               <svg viewBox="0 0 24 24" class="fill-current">
+                  <use xlink:href="/assets/images/icons.svg#move_up" />
+               </svg>
+               <span class="text-xxs text-white select-none">вверх</span>
+            </button>
+            
+            <!-- подвинуть вниз -->
+            <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-10 mr-3"
+               (click)="moveSection(section.id, false)">
+               <svg viewBox="0 0 24 24" class="fill-current">
+                  <use xlink:href="/assets/images/icons.svg#move_down" />
+               </svg>
+               <span class="text-xxs text-white select-none">вниз</span>
+            </button>
+         </div>
+         
+         <!-- рекурсия к вложенным секциям -->
+         <ul *ngIf="section.sections?.length && section.isExpanded" class="ml-10 flex flex-col space-y-2">
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: section.sections, parentId: section.id}">
+            </ng-container>
+         </ul>
+         
+         <!-- элементы секции -->
+         <ul *ngIf="section.items?.length && section.isExpanded" class="ml-11 mr-4 flex flex-col space-y-2">
+            <li *ngFor="let item of section.items"
+               class="rounded-md p-3 bg-white inline-flex items-center hover:bg-blue-500 group hover:text-white ml-3 flex-1 min-h-12">
+               
+               <!-- меню секции -->
+               <div class="relative">
+                  
+                  <!-- иконка -->
+                  <button (click)="item.isDropDownVisible = !item.isDropDownVisible" class="relative w-5 flex items-center">
+                     <svg viewBox="0 0 24 24" class="fill-current flex-1">
+                        <use xlink:href="/assets/images/icons.svg#dots" />
+                     </svg>
+                  </button>
+                  
+                  <!-- задний невидимый фон при вызове меню -->
+                  <button *ngIf="item.isDropDownVisible" (click)="item.isDropDownVisible = false" tabindex="-1"
+                     class="fixed inset-0 h-full w-full bg-blue-900 opacity-25 cursor-default z-10"></button>
+                  
+                  <!-- выпадающее меню -->
+                  <nav [ngClass]="{'visible opacity-100':item.isDropDownVisible, 'invisible opacity-0':!item.isDropDownVisible}"
+                     class="absolute transition-opacity duration-200 ease-in-out text-blue-900 bg-gray-100 z-50 left-0 w-max-content mt-5 -ml-6 shadow-lg rounded-md p-1">
+                     <ul>
+                        <li>
+                           <a class="dropdown-item" [routerLink]="['item', { itemId: item.id, parentId: section.id }]"
+                              (click)="item.isDropDownVisible = false">
+                              <svg viewBox="0 0 24 24" class="h-7 w-7">
+                                 <use xlink:href="/assets/images/icons.svg#edit" />
+                              </svg>
+                              <span>Редактировать</span>
+                           </a>
+                        </li>
+                        
+                        <li>
+                           <button class="dropdown-item cursor-pointer"
+                              (click)="item.isDropDownVisible = false; deleteItem(item.id)">
+                              <svg viewBox="0 0 24 24" class="w-6 h-6">
+                                 <use xlink:href="/assets/images/icons.svg#delete" />
+                              </svg>
+                              <span>Удалить</span>
+                           </button>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+               
+               <span class="font-normal text-base group-hover:text-white ml-6 flex-1 text-left truncate select-none"
+                  [title]="item.name">{{item.name}}</span>
+               <span class="font-normal text-base group-hover:text-white text-right ml-3 select-none">{{item.sale}} ₽</span>
+               
+            </li>
+         </ul>
+         
+      </li>
+   </ng-template>
+   <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: menuList }"></ng-container>
+</ul>

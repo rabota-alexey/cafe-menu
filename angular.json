@@ -49,6 +49,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "extractCss": true,
+            "allowedCommonJsDependencies": ["class-transformer"],
             "customWebpackConfig": {
               "path": "./webpack.config.js"
             },

@@ -51,11 +51,16 @@ module.exports = {
             '12': '3rem'
          },
          margin: {
-            '7': '1.75rem'
+            '7': '1.75rem',
+            '11': '2.75rem',
+            '1/4': '25%'
          },
          fontSize: {
             'xxs': '0.625rem'
-         }
+         },
+         scale: {
+            '175': '1.75'
+         },
       },
    },
    variants: {
@@ -75,7 +80,9 @@ module.exports = {
       boxShadow: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
       rotate: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
       flex: ['responsive', 'hover', 'focus', 'group-hover'],
-      zIndex: ['responsive', 'hover', 'focus']
+      zIndex: ['responsive', 'hover', 'focus'],
+      borderColor: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+      scale: ['responsive', 'hover', 'focus']
    },
    plugins: [],
 };

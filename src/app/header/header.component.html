@@ -1,6 +1,8 @@
-<header class="h-14 flex space-x-4 items-center justify-between select-none mx-3 border-b border-gray-400">
+<header class="h-14 flex space-x-4 items-center justify-between select-none mx-4">
    <!-- заголовок -->
-   <h1 class="text-blue-900 font-bold text-lg flex-1 flex-grow-1">Основное меню</h1>
+   <h1 class="font-bold text-lg flex-1 flex-grow-1">
+      <a [routerLink]="['']">Основное меню</a>
+   </h1>
    
    <!-- оповещения -->
    <div class="border rounded-md border-gray-700 px-2 py-1 text-xs text-gray-700 relative">2
@@ -8,7 +10,7 @@
    </div>
    
    <!-- аватар -->
-   <button class="h-6 w-12 inline-flex items-center focus:outline-none">
+   <button class="h-6 w-12 inline-flex items-center">
       <img src="/assets/images/avatar.png" class="h-7 w-7 object-cover rounded-full">
       <svg class="fill-current h-2 ml-1 flex-auto text-gray-700" viewBox="0 0 10 6">
          <use xlink:href="/assets/images/icons.svg#arrow_down" />

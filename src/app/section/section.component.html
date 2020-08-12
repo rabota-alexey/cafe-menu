@@ -1,0 +1,59 @@
+<div class="bg-white rounded-t-lg flex-grow h-screen p-4 pt-6">
+   <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold">{{sectionId ? 'Редактировать раздел' : 'Создать раздел'}}</h2>
+      <a class="text-blue-500 font-medium" [routerLink]="['']">Отмена</a>
+   </div>
+   
+   <!-- поле "название" -->
+   <div class="flex flex-col space-y-2 mt-4">
+      <label class="text-sm font-semibold">Название</label>
+      <input [(ngModel)]="currentSection.name"
+         class="bg-white text-sm border border-gray-400 focus:outline-none focus:border-blue-500 rounded-md py-2 px-4 block w-full appearance-none leading-normal"
+         type="text" placeholder="Введите название категории">
+   </div>
+   
+   <!-- поле "раздел" -->
+   <div class="flex flex-col relative mt-4">
+      <label class="text-sm font-semibold mb-2">Раздел</label>
+      
+      <span
+         class="bg-white text-sm focus:outline-none focus:border-blue-500 border border-gray-400 rounded-md py-2 px-4 block w-full appearance-none pr-8 leading-normal truncate">
+         {{sections[currentSection.parentIndex]?.value}}
+      </span>
+      
+      <div class="absolute flex flex-col right-0 bottom-0 m-1 items-center justify-center">
+         <button class="flex-auto p-1"
+            (click)="currentSection.parentIndex = currentSection.parentIndex - (currentSection.parentIndex > 0 ? 1 : 0)">
+            <svg class="fill-current h-2 text-gray-700 transform rotate-180" viewBox="0 0 10 6">
+               <use xlink:href="/assets/images/icons.svg#arrow_down" />
+            </svg>
+         </button>
+         
+         <button class="flex-auto p-1"
+            (click)="currentSection.parentIndex = currentSection.parentIndex + (currentSection.parentIndex >= sections.length-1 ? 0 : 1)">
+            <svg class="fill-current h-2 text-gray-700" viewBox="0 0 10 6">
+               <use xlink:href="/assets/images/icons.svg#arrow_down" />
+            </svg>
+         </button>
+      </div>
+   </div>
+   
+   <!-- поле "цвет раздела" -->
+   <div class="flex flex-col space-y-2 mt-4">
+      <label class="text-sm font-semibold">Цвет раздела</label>
+      
+      <div class="flex flex-wrap justify-center">
+         <span class="rounded-full p-1 w-8 h-8 m-4 transform"
+            [ngClass]="{'scale-175 shadow-outline': currentSection.color == color}" [ngStyle]="{'background-color': color}"
+            *ngFor="let color of colors"
+            (click)="currentSection.color == color ? currentSection.color = 'transparent' : currentSection.color = color"></span>
+      </div>
+   </div>
+   
+   
+</div>
+
+<div class="fixed flex bottom-0 left-0 w-full gradient-back">
+   <button class="flex-1 m-4 rounded-md p-3 bg-blue-500 text-center text-white font-semibold"
+      (click)="submit()">Сохранить</button>
+</div>

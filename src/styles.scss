@@ -10,3 +10,16 @@
 .display-contents {
    display: contents
 }
+
+button:focus {
+   @apply outline-none
+}
+
+.gradient-back {
+   background: linear-gradient(0deg, rgba(255, 255, 255, 1) 46%, rgba(9, 9, 121, 0) 100%);
+}
+
+.center-vertically {
+   top: 50%;
+   transform: translateY(-50%);
+}

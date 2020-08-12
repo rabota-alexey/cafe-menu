@@ -1,6 +1,7 @@
 {
-  "name": "nomia",
-  "version": "0.0.0",
+  "name": "menu",
+  "version": "0.0.1",
+  "author": "rabota_alexey@mail.ru",
   "scripts": {
     "postinstall": "ngcc",
     "start": "ng serve",
@@ -14,7 +15,6 @@
     "@angular/compiler": "~10.0.8",
     "@angular/core": "~10.0.8",
     "@angular/forms": "~10.0.8",
-    "@angular/material": "^10.1.2",
     "@angular/platform-browser": "~10.0.8",
     "@angular/platform-browser-dynamic": "~10.0.8",
     "@angular/router": "~10.0.8",

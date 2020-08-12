@@ -6,16 +6,24 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SectionComponent } from './section/section.component';
+import { MenuListComponent } from './menu-list/menu-list.component';
+import { FormsModule } from '@angular/forms';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SectionComponent,
+    MenuListComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [MenuService],
   bootstrap: [AppComponent, HeaderComponent]

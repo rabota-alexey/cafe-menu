@@ -1,0 +1,30 @@
+<div class="bg-white rounded-t-lg flex-grow h-screen p-4 pt-6">
+   <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold">{{itemId ? 'Редактировать позицию' : 'Создать позицию'}}</h2>
+      <a class="text-blue-500 font-medium" [routerLink]="['']">Отмена</a>
+   </div>
+   
+   <!-- поле "название" -->
+   <div class="flex flex-col space-y-2 mt-4">
+      <label class="text-sm font-semibold">Название</label>
+      <input [(ngModel)]="currentItem.name"
+         class="bg-white text-sm border border-gray-400 focus:outline-none focus:border-blue-500 rounded-md py-2 px-4 block w-full appearance-none leading-normal"
+         type="text" placeholder="Введите название категории">
+   </div>
+   
+   <!-- поле "цена" -->
+   <div class="flex flex-col space-y-2 mt-4">
+      <label class="text-sm font-semibold">Цена</label>
+      <div class="relative">
+         <input [(ngModel)]="currentItem.sale" class="bg-white text-sm border border-gray-400 focus:outline-none focus:border-blue-500 rounded-md py-2 px-4 pr-5
+             block w-full appearance-none leading-normal text-right" type="number" placeholder="Введите цену в рублях">
+         <span class="absolute right-0 center-vertically p-2 font-semibold text-lg">₽</span>
+      </div>
+   </div>
+   
+</div>
+
+<div class="fixed flex bottom-0 left-0 w-full gradient-back">
+   <button class="flex-1 m-4 rounded-md p-3 bg-blue-500 text-center text-white font-semibold"
+      (click)="submit()">Сохранить</button>
+</div>
