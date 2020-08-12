@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Colors, MenuSection } from 'src/classes/menuSection';
 import { MenuService } from 'src/services/menu.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'app-section',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SectionComponent implements OnInit {
   public colors = Colors;
-  public sections = this.menuService.getSectionList();
+  public sections: Array<KeyValue<string, string>>;
   public sectionId: string;
   parentId: string;
   public currentSection: MenuSection;
@@ -18,12 +19,13 @@ export class SectionComponent implements OnInit {
   constructor(private titleService: Title, private menuService: MenuService, private activateRoute: ActivatedRoute, private router: Router) {
     this.sectionId = (activateRoute.snapshot.params['sectionId'] as string)?.replace('undefined', ''); // 1) режим редактирования
     this.parentId = (activateRoute.snapshot.params['parentId'] as string)?.replace('undefined', '');   // 2) режим добавления в родителя  3) иначе - создание в корне
+    this.sections = this.menuService.getSectionList().filter(x => x.key !== this.sectionId);
     titleService.setTitle(this.sectionId ? 'Редактирование раздела' : 'Новый раздел');
 
     this.currentSection = this.sectionId ? menuService.getSection(this.sectionId) ?? new MenuSection() : new MenuSection();
 
     // если такого id родителя нет или не передали - делаем секцию верхнеуровневой
-    this.currentSection.parentIndex = this.sections.findIndex(x => x.key == this.parentId) < 0 ? 0 : this.sections.findIndex(x => x.key == this.parentId);
+    this.currentSection.parentIndex = this.sections.findIndex(x => x.key === this.parentId) < 0 ? 0 : this.sections.findIndex(x => x.key == this.parentId);
   }
 
   ngOnInit(): void {
