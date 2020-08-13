@@ -25,14 +25,14 @@
          <button class="flex-auto p-1"
             (click)="currentSection.parentIndex = currentSection.parentIndex - (currentSection.parentIndex > 0 ? 1 : 0)">
             <svg class="fill-current h-2 text-gray-700 transform rotate-180" viewBox="0 0 10 6">
-               <use xlink:href="/assets/images/icons.svg#arrow_down" />
+               <use xlink:href="./assets/images/icons.svg#arrow_down" />
             </svg>
          </button>
          
          <button class="flex-auto p-1"
             (click)="currentSection.parentIndex = currentSection.parentIndex + (currentSection.parentIndex >= sections.length-1 ? 0 : 1)">
             <svg class="fill-current h-2 text-gray-700" viewBox="0 0 10 6">
-               <use xlink:href="/assets/images/icons.svg#arrow_down" />
+               <use xlink:href="./assets/images/icons.svg#arrow_down" />
             </svg>
          </button>
       </div>
@@ -43,7 +43,7 @@
       <label class="text-sm font-semibold">Цвет раздела</label>
       
       <div class="flex flex-wrap justify-center">
-         <span class="rounded-full p-1 w-8 h-8 m-4 transform"
+         <span class="rounded-full p-1 w-8 h-8 m-4 transform cursor-pointer"
             [ngClass]="{'scale-175 shadow-outline': currentSection.color == color}" [ngStyle]="{'background-color': color}"
             *ngFor="let color of colors"
             (click)="currentSection.color == color ? currentSection.color = 'transparent' : currentSection.color = color"></span>

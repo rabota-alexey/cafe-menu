@@ -1,14 +1,14 @@
 <div class="flex space-x-3 m-4 mt-0 pt-4 border-t border-gray-400">
    <a class="flex-1 btn" [routerLink]="['section']">
       <svg viewBox="0 0 24 24">
-         <use xlink:href="/assets/images/icons.svg#add" />
+         <use xlink:href="./assets/images/icons.svg#add" />
       </svg>
       <span>Раздел</span>
    </a>
    
    <a class="flex-1 btn" [routerLink]="['item']">
       <svg viewBox="0 0 24 24">
-         <use xlink:href="/assets/images/icons.svg#add" />
+         <use xlink:href="./assets/images/icons.svg#add" />
       </svg>
       <span>Позиция</span>
    </a>
@@ -16,7 +16,7 @@
 
 <div *ngIf="!(menu | async)?.length" class="absolute flex flex-col items-center justify-center w-full mt-1/4">
    <svg viewBox="0 0 24 24" class="fill-current text-gray-400 w-full h-40">
-      <use xlink:href="/assets/images/icons.svg#empty_menu" />
+      <use xlink:href="./assets/images/icons.svg#empty_menu" />
    </svg>
    
    <span class="text-gray-600 mt-5 text-lg text-center w-3/5">Добавьте в новое меню разделы и позиции</span>
@@ -37,7 +37,7 @@
             <button class="w-3 ml-1">
                <svg viewBox="0 0 24 24" class="fill-current transform" [ngClass]="{'-rotate-90': section.isExpanded}"
                   (click)="triggerExpand(section.id)">
-                  <use xlink:href="/assets/images/icons.svg#arrow_down" />
+                  <use xlink:href="./assets/images/icons.svg#arrow_down" />
                </svg>
             </button>
             
@@ -48,7 +48,7 @@
                <button (click)="section.isDropDownVisible = !section.isDropDownVisible"
                   class="relative w-5 ml-6 flex items-center">
                   <svg viewBox="0 0 24 24" class="fill-current flex-1">
-                     <use xlink:href="/assets/images/icons.svg#dots" />
+                     <use xlink:href="./assets/images/icons.svg#dots" />
                   </svg>
                </button>
                
@@ -65,7 +65,7 @@
                         <a class="dropdown-item" [routerLink]="['item', { parentId: section.id} ]"
                            (click)="section.isDropDownVisible = false">
                            <svg viewBox="0 0 24 24" class="h-7 w-7">
-                              <use xlink:href="/assets/images/icons.svg#add" />
+                              <use xlink:href="./assets/images/icons.svg#add" />
                            </svg>
                            <span>Добавить позицию</span>
                         </a>
@@ -75,7 +75,7 @@
                         <a class="dropdown-item" [routerLink]="['section', { parentId: section.id} ]"
                            (click)="section.isDropDownVisible = false">
                            <svg viewBox="0 0 24 24" class="h-7 w-7">
-                              <use xlink:href="/assets/images/icons.svg#add" />
+                              <use xlink:href="./assets/images/icons.svg#add" />
                            </svg>
                            <span>Добавить раздел меню</span>
                         </a>
@@ -85,17 +85,16 @@
                         <a class="dropdown-item" [routerLink]="['section', { sectionId: section.id, parentId: parentId }]"
                            (click)="section.isDropDownVisible = false">
                            <svg viewBox="0 0 24 24" class="h-7 w-7">
-                              <use xlink:href="/assets/images/icons.svg#edit" />
+                              <use xlink:href="./assets/images/icons.svg#edit" />
                            </svg>
                            <span>Редактировать</span>
                         </a>
                      </li>
                      
                      <li>
-                        <button class="dropdown-item cursor-pointer"
-                           (click)="section.isDropDownVisible = false; deleteSection(section.id)">
+                        <button class="dropdown-item" (click)="section.isDropDownVisible = false; deleteSection(section.id)">
                            <svg viewBox="0 0 24 24" class="w-6 h-6">
-                              <use xlink:href="/assets/images/icons.svg#delete" />
+                              <use xlink:href="./assets/images/icons.svg#delete" />
                            </svg>
                            <span>Удалить</span>
                         </button>
@@ -112,7 +111,7 @@
             <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-6"
                (click)="moveSection(section.id, true)">
                <svg viewBox="0 0 24 24" class="fill-current">
-                  <use xlink:href="/assets/images/icons.svg#move_up" />
+                  <use xlink:href="./assets/images/icons.svg#move_up" />
                </svg>
                <span class="text-xxs text-white select-none">вверх</span>
             </button>
@@ -121,7 +120,7 @@
             <button class="hidden group-hover:flex flex-col items-center space-y-1 w-3 ml-10 mr-3"
                (click)="moveSection(section.id, false)">
                <svg viewBox="0 0 24 24" class="fill-current">
-                  <use xlink:href="/assets/images/icons.svg#move_down" />
+                  <use xlink:href="./assets/images/icons.svg#move_down" />
                </svg>
                <span class="text-xxs text-white select-none">вниз</span>
             </button>
@@ -144,7 +143,7 @@
                   <!-- иконка -->
                   <button (click)="item.isDropDownVisible = !item.isDropDownVisible" class="relative w-5 flex items-center">
                      <svg viewBox="0 0 24 24" class="fill-current flex-1">
-                        <use xlink:href="/assets/images/icons.svg#dots" />
+                        <use xlink:href="./assets/images/icons.svg#dots" />
                      </svg>
                   </button>
                   
@@ -153,24 +152,23 @@
                      class="fixed inset-0 h-full w-full bg-blue-900 opacity-25 cursor-default z-10"></button>
                   
                   <!-- выпадающее меню -->
-                  <nav [ngClass]="{'visible opacity-100':item.isDropDownVisible, 'invisible opacity-0':!item.isDropDownVisible}"
-                     class="absolute transition-opacity duration-200 ease-in-out text-blue-900 bg-gray-100 z-50 left-0 w-max-content mt-5 -ml-6 shadow-lg rounded-md p-1">
+                  <nav [ngClass]="{'visible opacity-100': item.isDropDownVisible, 'invisible opacity-0': !item.isDropDownVisible}"
+                     class="absolute transition-opacity duration-200 ease-in-out text-blue-900 bg-gray-100 z-50 left-0 w-max-content mt-5 -ml-3 shadow-lg rounded-md p-1">
                      <ul>
                         <li>
                            <a class="dropdown-item" [routerLink]="['item', { itemId: item.id, parentId: section.id }]"
                               (click)="item.isDropDownVisible = false">
                               <svg viewBox="0 0 24 24" class="h-7 w-7">
-                                 <use xlink:href="/assets/images/icons.svg#edit" />
+                                 <use xlink:href="./assets/images/icons.svg#edit" />
                               </svg>
                               <span>Редактировать</span>
                            </a>
                         </li>
                         
                         <li>
-                           <button class="dropdown-item cursor-pointer"
-                              (click)="item.isDropDownVisible = false; deleteItem(item.id)">
+                           <button class="dropdown-item" (click)="item.isDropDownVisible = false; deleteItem(item.id)">
                               <svg viewBox="0 0 24 24" class="w-6 h-6">
-                                 <use xlink:href="/assets/images/icons.svg#delete" />
+                                 <use xlink:href="./assets/images/icons.svg#delete" />
                               </svg>
                               <span>Удалить</span>
                            </button>

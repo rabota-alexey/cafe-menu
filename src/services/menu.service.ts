@@ -7,8 +7,8 @@ import { catchError, map, switchMap, take, tap, skip, mapTo } from 'rxjs/operato
 import { MenuSection } from 'src/classes/menuSection';
 import { KeyValue } from '@angular/common';
 
-const menuStorageKey = 'nomia.menu';
-const menuFile = '/assets/menu.json';
+const menuStorageKey = 'menu';
+const menuFile = './assets/menu.json';
 
 @Injectable({
     providedIn: 'root',
