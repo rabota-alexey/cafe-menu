@@ -5,7 +5,8 @@
    "scripts": {
       "postinstall": "ngcc",
       "start": "ng serve",
-      "build": "ng build"
+      "build": "ng build",
+      "deploy": "ng deploy --base-href=/nomia/"
    },
    "private": true,
    "dependencies": {
