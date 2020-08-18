@@ -6,7 +6,7 @@
       "postinstall": "ngcc",
       "start": "ng serve",
       "build": "ng build",
-      "deploy": "ng deploy --base-href=/nomia/"
+      "deploy": "ng deploy --base-href=/cafe-menu/"
    },
    "private": true,
    "dependencies": {
