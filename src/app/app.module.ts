@@ -10,6 +10,10 @@ import { SectionComponent } from './section/section.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './item/item.component';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,9 +27,11 @@ import { ItemComponent } from './item/item.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    AkitaNgRouterStoreModule
   ],
-  providers: [MenuService],
+  providers: [MenuService, { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' } }],
   bootstrap: [AppComponent, HeaderComponent]
 })
 export class AppModule { }
