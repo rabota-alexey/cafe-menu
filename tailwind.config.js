@@ -1,4 +1,7 @@
 module.exports = {
+   future: {
+      removeDeprecatedGapUtilities: true,
+   },
    //whenever you compile your CSS with NODE_ENV set to production, Tailwind will automatically purge unused styles from your CSS
    purge: ["./src/**/*.html"], //https://tailwindcss.com/docs/controlling-file-size
    theme: {
